@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
+    <script src="{% static 'main/index.js' %}" defer></script>
+    <script src="{% static 'js/Chart.min.js' %}" defer></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Average Property Sale Price By Year</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="" id="form">
+                <div class="form-group">
+                    <label for="price_min">Minimum Price</label>
+                    <input type="number" class="form-control" id="price_min" name="price_min" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="price_max">Maximum Price</label>
+                    <input type="number" class="form-control" id="price_max" name="price_max" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="date_after">Purchase Date After</label>
+                    <input type="date" class="form-control" id="date_after" name="date_after">
+                </div>
+                <div class="form-group">
+                    <label for="date_before">Purchase Date Before</label>
+                    <input type="date" class="form-control" id="date_before" name="date_before">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="reset" class="btn btn-primary">Clear</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
