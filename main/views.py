@@ -1,6 +1,7 @@
 import django_filters.rest_framework as filters
 from django.db.models import Avg
 from django.db.models.functions import TruncYear
+from django.forms import fields, widgets
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -11,11 +12,23 @@ from .models import Sale
 from .serializers import SaleSerializer
 
 
+class DateInput(widgets.DateInput):
+    input_type = "date"
+
+
+class DateField(fields.DateField):
+    widget = DateInput
+
+
+class DateFilter(filters.DateFilter):
+    field_class = DateField
+
+
 class SaleFilter(filters.FilterSet):
     price_min = filters.NumberFilter(field_name="price", lookup_expr='gte')
     price_max = filters.NumberFilter(field_name="price", lookup_expr='lte')
-    date_after = filters.DateTimeFilter(field_name="date", lookup_expr="gte", input_formats=["%Y-%m-%d", "%Y/%m/%d"])
-    date_before = filters.DateTimeFilter(field_name="date", lookup_expr="lte", input_formats=["%Y-%m-%d", "%Y/%m/%d"])
+    date_after = DateFilter(field_name="date", lookup_expr="gte", input_formats=["%Y-%m-%d", "%Y/%m/%d"])
+    date_before = DateFilter(field_name="date", lookup_expr="lte", input_formats=["%Y-%m-%d", "%Y/%m/%d"])
     borough = filters.Filter(field_name="neighborhood__borough__name")
     neighborhood = filters.Filter(field_name="neighborhood__name")
 

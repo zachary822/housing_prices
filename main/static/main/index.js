@@ -60,8 +60,4 @@ window.addEventListener('load', function () {
 
     updateChart(BASE_URL + "?" + qs);
   });
-
-  form.addEventListener('reset', function (e) {
-    updateChart(BASE_URL);
-  });
 });
