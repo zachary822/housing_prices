@@ -20,5 +20,5 @@ class Neighborhood(models.Model):
 class Sale(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
-    price = models.IntegerField(db_index=True)
+    price = models.BigIntegerField(db_index=True)
     date = models.DateTimeField()
