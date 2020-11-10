@@ -72,7 +72,7 @@ class Command(BaseCommand):
         )
 
         connection.ensure_connection()  # Important, will result in None connection if left out.
-        engine = create_engine('sqlite://', creator=lambda: connection.connection)
+        engine = create_engine('postgresql://', creator=lambda: connection.connection)
 
         boroughs = pd.read_sql('select * from main_borough', engine)
         neighborhoods = neighborhoods.merge(boroughs, left_on='BOROUGH', right_on='name')
