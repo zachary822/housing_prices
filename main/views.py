@@ -9,7 +9,7 @@ from rest_framework.schemas.openapi import AutoSchema
 from rest_framework.views import Response
 
 from .models import Sale
-from .serializers import SaleSerializer
+from .serializers import SaleSerializer, SummarySerializer
 
 
 class DateInput(widgets.DateInput):
@@ -50,12 +50,12 @@ class SaleViewSet(viewsets.ModelViewSet):
     schema = SaleSchema()
     queryset = (Sale.objects.all()
                 .prefetch_related('neighborhood', 'neighborhood__borough')
-                .order_by('address'))
+                .order_by('pk'))
     serializer_class = SaleSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = SaleFilter
 
-    @action(methods=['get'], detail=False)
+    @action(methods=['get'], detail=False, serializer_class=SummarySerializer)
     def summary(self, request):
         """
         Average price for each year

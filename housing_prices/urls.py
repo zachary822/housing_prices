@@ -28,13 +28,12 @@ urlpatterns = [
     path('', main.views.SaleSummaryView.as_view()),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/openapi/', get_schema_view(
-        title="NYC House Sales",
-        description="Listing all house sale prices, addresses, and dates.",
+    path('openapi/', get_schema_view(
+        title="NYC Property Sales",
+        description="Listing all property sale prices, addresses, and dates.",
         version="1.0.0"
     ), name='openapi-schema'),
     path('swagger-ui/', TemplateView.as_view(
-        template_name='main/swagger-ui.html',
-        extra_context={'schema_url': 'openapi-schema'}
+        template_name='main/swagger-ui.html'
     ), name='swagger-ui'),
 ]
