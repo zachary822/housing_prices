@@ -1,7 +1,7 @@
 import re
 from functools import partial
 from itertools import filterfalse
-from operator import attrgetter
+from operator import attrgetter, methodcaller
 from urllib.parse import urljoin
 
 import pandas as pd
@@ -56,9 +56,18 @@ def get_all_data(url, boroughs=None):
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument("--all", action="store_true", help="download data from all boroughs")
+        parser.add_argument("-b", "--boroughs", type=methodcaller('upper'), nargs='+')
+
     def handle(self, *args, **options):
         self.stdout.write("Downloading data...")
-        df = get_all_data(URL, boroughs=['MANHATTAN'])
+        if options['all']:
+            df = get_all_data(URL)
+        elif options['boroughs']:
+            df = get_all_data(URL, boroughs=options['boroughs'])
+        else:
+            df = get_all_data(URL, boroughs=['MANHATTAN'])
         # with open('data.pickle', 'wb') as f:
         #     pickle.dump(df, f)
         # with open('data.pickle', 'rb') as f:
