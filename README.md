@@ -100,6 +100,11 @@ Summary of average sale price by year of queried data.
 }
 ```
 
+## Requirements
+
+- docker
+- docker-compose
+
 ## Deploy
 
 ```shell script
